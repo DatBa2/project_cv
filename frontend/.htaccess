@@ -1,0 +1,26 @@
+# frontend/.htaccess
+# + File này được dùng cho việc Rewrite URL - tạo các url
+# thân thiện với user
+# + Chuẩn nhất thì bên frontend luôn cần Rewrite URL, với
+# project demo thì tùy ý
+# Bắt đầu khai báo cú pháp để có thể rewrite url dạng:
+# gio-hang-cua-ban.html thay vì phải truy cập vào url dạng
+#mvc là: index.php?controller=cart&action=index
+# Rewrite nếu áp dụng vào MVC thuần thì sẽ khá nhiều vấn đề
+# phức tạp khi kết hợp với các chúc năng như phân trang, tìm
+# kiếm theo phương thức GET ...
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#Khai báo các rule để Reweite
+#Cú pháp như sau:
+#RewriteRule <url-rewrite> <url-mvc>
+RewriteRule gio-hang-cua-ban.html index.php?controller=cart&action=index
+#Giả sử rewrite cho trang chi tiết sản phẩm
+#san-pham/samsung-note-10/20.html
+RewriteRule san-pham/(.*)/([0-9]{1,}).html index.php?controller=product&action=detail&title=$1&id=$2
+#Khai báo rule cho Xóa sản phẩm khỏi giỏ hàng
+#xoa-san-pham/4.html
+RewriteRule xoa-san-pham/([0-9]{1,}).html index.php?controller=cart&action=delete&id=$1
+#Rule cho rewrite Trang thanh toán
+RewriteRule thanh-toan.html index.php?controller=payment&action=index
